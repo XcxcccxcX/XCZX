@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by Enzo Cotter on 2019/12/12.
@@ -34,5 +35,15 @@ public class DaoRepository {
         Pageable pageable = PageRequest.of(page,size);
         Page<CmsPage> all = cmsPageRepository.findAll(pageable);
         System.out.println(all);
+    }
+
+    @Test
+    public void testUpdate(){
+        Optional<CmsPage> cmsPageRepositoryById = cmsPageRepository.findById("5d621d030484d86994f579a9");
+        if (cmsPageRepositoryById.isPresent()){
+            CmsPage cmsPage = cmsPageRepositoryById.get();
+            cmsPage.setPageName("2");
+            cmsPageRepository.save(cmsPage);
+        }
     }
 }
